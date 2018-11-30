@@ -19,9 +19,9 @@ module.exports = {
   },
 
   addBathroom: params => {
-    //console.log('Params Received: ', params);
-    let latitude = params.location.lat;
-    let longitude = params.location.lng;
+    console.log('Bathroom (as Params) Received: ', params);
+    let latitude = params.lat;
+    let longitude = params.lng;
     return new Promise((resolve, reject) => {
       Bathroom.findOne({ place_id: params.place_id })
         .then(bathroom => {
