@@ -11,10 +11,11 @@ require('dotenv').config();
 var todoRouter = require('./routes/todo/todo-routes');
 var indexRouter = require('./routes/indexRouter');
 var bathroomRouter = require('./routes/bathrooms/bathroomRouter');
+var usersRouter = require('./routes/users/usersRouter');
 
 mongoose
   .connect(
-    process.env.MONGODB_URI,
+    process.env.MONGODB_URI_ML,
     { useNewUrlParser: true }
   )
   .then(() => console.log('MONGODB CONNECTED'))
@@ -40,6 +41,7 @@ const port = process.env.PORT || 3000;
 //Routes
 app.use('/', indexRouter);
 app.use('/bathrooms', bathroomRouter);
+app.use('/users', usersRouter);
 app.use('/todo', todoRouter);
 
 //404 error

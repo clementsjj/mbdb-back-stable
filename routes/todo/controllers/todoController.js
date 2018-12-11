@@ -49,7 +49,6 @@ module.exports = {
             error: err
           });
         }
-        console.log('Update Todo: ', todo);
         return res.json({
           confirmation: 'Success',
           message: 'Updatd Todo',
