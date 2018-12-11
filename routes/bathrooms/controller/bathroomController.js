@@ -1,13 +1,9 @@
 var Bathroom = require('../model/bathroomModel');
 
 module.exports = {
-  findBathrooms: (req, res) => {
-    console.log('Grabbing all bathrooms (sent from bathroomController');
+  findValidatedBathrooms: (req, res) => {
     Bathroom.find({ isValidated: true })
       .then(bathrooms => {
-        console.log(bathrooms);
-
-        // bathrooms.reduce()
         let success = {};
         success.confirmation = true;
         success.payload = bathrooms;
@@ -18,15 +14,64 @@ module.exports = {
       });
   },
 
+  findNonValidatedBathrooms: (req, res) => {
+    Bathroom.find({ isValidated: false })
+      .then(bathrooms => {
+        let success = {};
+        success.confirmation = true;
+        success.payload = bathrooms;
+        res.json(bathrooms);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  },
+
+  deleteBathroom: params => {
+    return new Promise((resolve, reject) => {
+      Bathroom.findByIdAndRemove(params._id)
+        .then(() => {
+          let success = {};
+          success.confirmation = true;
+          //res.json(success);
+          resolve(success);
+        })
+        .catch(err => {
+          //res.json(err);
+          reject(err);
+        });
+    });
+  },
+
+  findAllBathrooms: (req, res) => {
+    Bathroom.find({})
+      .then(bathrooms => {
+        let success = {};
+        success.confirmation = true;
+        success.payload = bathrooms;
+        res.json(bathrooms);
+      })
+      .catch(err => {
+        res.json(err);
+      });
+  },
+
+  editBathroom: params => {
+    return new Promise((resolve, reject) => {
+      Bathroom.findOneAndUpdate({ _id: params._id }, params).then(
+        updatedBathroom => {
+          resolve(updatedBathroom);
+        }
+      );
+    });
+  },
+
   addBathroom: params => {
-    console.log('Bathroom (as Params) Received: ', params);
     let latitude = params.lat;
     let longitude = params.lng;
     return new Promise((resolve, reject) => {
       Bathroom.findOne({ place_id: params.place_id })
         .then(bathroom => {
-          console.log('----------');
-          console.log(bathroom);
           if (bathroom) {
             let errors = {};
             errors.code = 'Bathroom Already Exists';

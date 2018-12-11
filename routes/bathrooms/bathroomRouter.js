@@ -23,7 +23,6 @@ router.get('/placesautocomplete', (req, res) => {
     })
     .asPromise()
     .then(response => {
-      console.log('AUTORESULTS: ', response.json);
       res.json(response.json);
     })
     .catch(err => {
@@ -32,10 +31,6 @@ router.get('/placesautocomplete', (req, res) => {
 });
 
 router.get('/placesearch', (req, res) => {
-  console.log('*************************************');
-  console.log('Sending Google Places Request... with: ', req.query.query);
-  console.log('*************************************');
-
   let query = req.query.query;
   const googleMapsClient = require('@google/maps').createClient({
     key: 'AIzaSyAbFlH5i12gn57-9R-1sKrZA9z_ojn1lwA',
@@ -73,7 +68,48 @@ router.get('/placesearch', (req, res) => {
   //   });
 });
 
-router.get('/getallbathrooms', bathroomController.findBathrooms);
+router.get('/getvalidatedbathrooms', bathroomController.findValidatedBathrooms);
+router.get(
+  '/getnonvalidatedbathrooms',
+  bathroomController.findNonValidatedBathrooms
+);
+router.get('/getallbathrooms', bathroomController.findAllBathrooms);
+
+router.delete('/deletebathroom', (req, res) => {
+  console.log('Going to delete..');
+  bathroomController
+    .deleteBathroom(req.body)
+    .then(bathroom => {
+      console.log('Bathroom Deleted: ', bathroom);
+      res.status(200).json({
+        confirmation: 'success',
+        payload: bathroom
+      });
+    })
+    .catch(err => {
+      res.status(400).json({
+        confirmation: 'failure',
+        payload: err
+      });
+    });
+});
+
+router.put('/editbathroom', (req, res) => {
+  bathroomController
+    .editBathroom(req.body)
+    .then(bathroom => {
+      res.status(200).json({
+        confirmation: 'success',
+        payload: bathroom
+      });
+    })
+    .catch(err => {
+      res.status(400).json({
+        confirmation: 'failure',
+        payload: err
+      });
+    });
+});
 
 router.post('/addbathroom', (req, res) => {
   console.log('Adding a Bathroom (sent from bathroomRouter)');
