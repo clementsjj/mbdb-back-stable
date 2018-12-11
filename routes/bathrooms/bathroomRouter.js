@@ -95,12 +95,22 @@ router.delete('/deletebathroom', (req, res) => {
 });
 
 router.put('/addadditionalcode', (req, res) => {
-  bathroomController.addAdditionalCode(req.body).then(bathroom => {
-    res.status(200).json({
-      confirmation: 'success',
-      payload: bathroom
+  //console.log(req.body);
+  bathroomController
+    .addAdditionalCode(req.body)
+    .then(data => {
+      console.log(data);
+      res.status(200).json({
+        confirmation: 'success',
+        payload: data
+      });
+    })
+    .catch(err => {
+      res.status(400).json({
+        confirmation: 'failure',
+        payload: err
+      });
     });
-  });
 });
 
 router.put('/editbathroom', (req, res) => {

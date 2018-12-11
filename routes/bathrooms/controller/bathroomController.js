@@ -67,11 +67,17 @@ module.exports = {
   },
 
   addAdditionalCode: params => {
-    return new promise((resolve, reject) => {
-      Bathroom.findById(params._id).then(bathroom => {
-        bathroom.otherCodes.push(params.otherCodes);
-      });
-    });
+    console.log(params);
+    // return new promise((resolve, reject) => {
+    Bathroom.findById(params._id)
+      .then(data => {
+        data.otherCodes.push(params.codes);
+        console.log('NewData = ', data);
+        //resolve(data);
+      })
+      .save();
+    //  .catch(err => reject(err));
+    //});
   },
 
   addBathroom: params => {
