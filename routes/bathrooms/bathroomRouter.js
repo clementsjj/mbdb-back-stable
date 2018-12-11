@@ -94,6 +94,15 @@ router.delete('/deletebathroom', (req, res) => {
     });
 });
 
+router.put('/addadditionalcode', (req, res) => {
+  bathroomController.addAdditionalCode(req.body).then(bathroom => {
+    res.status(200).json({
+      confirmation: 'success',
+      payload: bathroom
+    });
+  });
+});
+
 router.put('/editbathroom', (req, res) => {
   bathroomController
     .editBathroom(req.body)

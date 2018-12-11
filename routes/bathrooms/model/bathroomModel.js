@@ -7,6 +7,7 @@ var BathroomSchema = new mongoose.Schema({
   lat: { type: Number, default: 0 },
   lng: { type: Number, default: 0 },
   code: { type: String, default: '1111' },
+  otherCodes: { type: Array, default: [] },
   isPublic: { type: Boolean, default: false },
   quality: { type: Number, default: 5 },
   isValidated: { type: Boolean, default: false }

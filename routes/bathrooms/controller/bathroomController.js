@@ -66,6 +66,14 @@ module.exports = {
     });
   },
 
+  addAdditionalCode: params => {
+    return new promise((resolve, reject) => {
+      Bathroom.findById(params._id).then(bathroom => {
+        bathroom.otherCodes.push(params.otherCodes);
+      });
+    });
+  },
+
   addBathroom: params => {
     let latitude = params.lat;
     let longitude = params.lng;
