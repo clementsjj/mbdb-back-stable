@@ -67,17 +67,29 @@ module.exports = {
   },
 
   addAdditionalCode: params => {
-    console.log(params);
-    // return new promise((resolve, reject) => {
-    Bathroom.findById(params._id)
-      .then(data => {
-        data.otherCodes.push(params.codes);
-        console.log('NewData = ', data);
-        //resolve(data);
-      })
-      .save();
-    //  .catch(err => reject(err));
-    //});
+    return new Promise((resolve, reject) => {
+      Bathroom.updateOne(
+        { _id: params._id },
+        { $push: { otherCodes: params.codes } }
+      )
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => reject(err));
+    });
+  },
+
+  removeCode: params => {
+    return new Promise((resolve, reject) => {
+      Bathroom.updateOne(
+        { _id: params._id },
+        { $pullAll: { otherCodes: [params.value] } }
+      )
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => reject(err));
+    });
   },
 
   addBathroom: params => {

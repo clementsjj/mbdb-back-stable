@@ -113,6 +113,23 @@ router.put('/addadditionalcode', (req, res) => {
     });
 });
 
+router.put('/removecode', (req, res) => {
+  bathroomController
+    .removeCode(req.body)
+    .then(data => {
+      res.status(200).json({
+        confirmation: 'success',
+        payload: data
+      });
+    })
+    .catch(err => {
+      res.status(400).json({
+        confirmation: 'failure',
+        payload: err
+      });
+    });
+});
+
 router.put('/editbathroom', (req, res) => {
   bathroomController
     .editBathroom(req.body)
