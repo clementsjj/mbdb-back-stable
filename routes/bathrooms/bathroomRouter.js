@@ -75,7 +75,7 @@ router.get(
 );
 router.get('/getallbathrooms', bathroomController.findAllBathrooms);
 
-router.delete('/deletebathroom', (req, res) => {
+router.put('/deletebathroom', (req, res) => {
   console.log('Going to delete..');
   bathroomController
     .deleteBathroom(req.body)

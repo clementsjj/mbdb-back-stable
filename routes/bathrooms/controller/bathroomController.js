@@ -29,7 +29,7 @@ module.exports = {
 
   deleteBathroom: params => {
     return new Promise((resolve, reject) => {
-      Bathroom.findByIdAndRemove(params._id)
+      Bathroom.findOneAndDelete({ _id: params._id })
         .then(() => {
           let success = {};
           success.confirmation = true;
