@@ -107,6 +107,7 @@ module.exports = {
             const newBathroom = new Bathroom({
               place_id: params.place_id,
               name: params.name,
+              description: params.description,
               address: params.address,
               lat: latitude,
               lng: longitude,
