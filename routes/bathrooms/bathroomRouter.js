@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var bathroomController = require('./controller/bathroomController');
 var axios = require('axios');
+var cors = require('cors');
 
 router.get('/placesautocomplete', (req, res) => {
   const googleMapsClient = require('@google/maps').createClient({
@@ -73,7 +74,7 @@ router.get(
   '/getnonvalidatedbathrooms',
   bathroomController.findNonValidatedBathrooms
 );
-router.get('/getallbathrooms', bathroomController.findAllBathrooms);
+router.get('/getallbathrooms', cors(), bathroomController.findAllBathrooms);
 
 router.put('/deletebathroom', (req, res) => {
   console.log('Going to delete..');
