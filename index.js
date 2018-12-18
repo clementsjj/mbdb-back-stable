@@ -15,7 +15,7 @@ var usersRouter = require('./routes/users/usersRouter');
 
 mongoose
   .connect(
-    process.env.MONGODB_URI_ML,
+    process.env.MONGOLAB_COBALT_URI,
     { useNewUrlParser: true }
   )
   .then(() => console.log('MONGODB CONNECTED'))
@@ -32,14 +32,14 @@ const port = process.env.PORT || 3000;
 // app.use(cookieParser());
 
 //CORS without the CORS module........
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept'
+//   );
+//   next();
+// });
 
 //Routes
 app.use('/', indexRouter);
