@@ -12,8 +12,7 @@ var BathroomSchema = new mongoose.Schema({
   isPublic: { type: Boolean, default: false },
   quality: { type: Number, default: 5 },
   isValidated: { type: Boolean, default: false },
-  date: { type: Date, default: Date.now },
-  timestamps: { createdAt: 'created_at' }
+  date: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Bathroom', BathroomSchema);
